@@ -59,3 +59,11 @@ newFaces  = Flatten[Map[newIndex[#,{Points,edges,faces}]&,ReplaceFace/@faces,{-2
 Function[iteration,
 Graphics3D[(Polygon[iteration[[1]][[#]]]&/@iteration[[2]])]
 ]/@NestList[CatMullClark,{points,faces},3]//GraphicsRow
+
+
+(* For a surface with holes the resulting iterative subdivision will be: *)
+faces = Delete[faces, 6];
+Function[iteration, Graphics3D[
+    (Polygon[iteration[[1]][[#]]] & /@ iteration[[2]])
+    ]] /@ NestList[CatMullClark, {points, faces}, 3] // GraphicsRow
+
